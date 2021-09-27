@@ -1,0 +1,5 @@
+npm init -y
+npm install nodemon express mongoose
+npm install cors
+npm install bcrypt --save
+npm install jsonwebtoken
