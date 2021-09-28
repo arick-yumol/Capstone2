@@ -14,6 +14,7 @@ router.post('/add', auth.verify, (req, res) => {
 		productController.addProduct(data).then(result => res.send(result));
 	} 
 	else {
+		console.log("Invalid command! User is not an admin.")
 		res.send(false)
 	}
 })
@@ -28,6 +29,21 @@ router.get('/:id', (req, res) => {
 	productController.getSpecificProduct(req.params.id).then(result => res.send(result));
 })
 
+// Product update
+router.put('/:productId/update', auth.verify, (req, res) => {
+	const data = {
+		isAdmin: auth.decode(req.headers.authorization).isAdmin
+	}
+
+	if (data.isAdmin) {
+		productController.updateProduct(req.params, req.body).then(result => res.send(result));
+	} 
+	else {
+		console.log("Invalid command! User is not an admin.")
+		res.send(false)
+	}
+})
+
 // Product archive
 router.put('/:productId/archive', auth.verify, (req, res) => {
 	const data = {
@@ -38,6 +54,7 @@ router.put('/:productId/archive', auth.verify, (req, res) => {
 		productController.archiveProduct(req.params, req.body).then(result => res.send(result));
 	}
 	else {
+		console.log("Invalid command! User is not an admin.")
 		res.send(false)
 	}
 })

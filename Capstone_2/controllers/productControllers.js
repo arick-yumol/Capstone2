@@ -20,7 +20,7 @@ module.exports.addProduct = (reqBody) => {
 			}
 		})
 	}
-	else {	// Encounter TypeError: not a function
+	else {
 		console.log("Error! User is not an admin");
 		return false;
 	}
@@ -60,17 +60,37 @@ module.exports.getSpecificProduct = (productId) => {
 	})
 }
 
+// Product update
+module.exports.updateProduct = (reqParams, reqBody) => {
+	let updateProductInformation = {
+		name: reqBody.name,
+		description: reqBody.description,
+		price: reqBody.price
+	}
+
+	return Product.findByIdAndUpdate(reqParams.productId, updateProductInformation).then((product, error) => {
+		if (error) {
+			console.log("Error! Product update unsuccessful.");
+			return false;
+		}
+		else {
+			console.log("Product updated successfully!");
+			return true;
+		}
+	})
+}
+
 // Product archive
 module.exports.archiveProduct = (reqParams) => {
 	let updateProductStatus = {
 		isActive: false
 	}
 
-	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((course, error) => {
+	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((product, error) => {
 		if (error) {
 			console.log("Error! Product archival unsuccessful.");
 			return false;
-		} 
+		}
 		else {
 			console.log("Archived product successfully!");
 			return true;
@@ -84,11 +104,11 @@ module.exports.unarchiveProduct = (reqParams) => {
 		isActive: true
 	}
 
-	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((course, error) => {
+	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((product, error) => {
 		if (error) {
 			console.log("Error! Unarchiving product unsuccessful.");
 			return false;
-		} 
+		}
 		else {
 			console.log("Unarchived product successfully!");
 			return true;
