@@ -4,13 +4,18 @@ const productController = require('../controllers/productControllers');
 const auth = require('../auth');
 
 // Product addition
-router.post('/', auth.verify, (req, res) => {
+router.post('/add', auth.verify, (req, res) => {
 	const data = {
 		product: req.body,
 		isAdmin: auth.decode(req.headers.authorization).isAdmin
 	}
 
-	productController.addProduct(data).then(result => res.send(result));
+	if (data.isAdmin) {
+		productController.addProduct(data).then(result => res.send(result));
+	} 
+	else {
+		res.send(false)
+	}
 })
 
 // Product retrieval (ALL)
@@ -23,6 +28,32 @@ router.get('/:id', (req, res) => {
 	productController.getSpecificProduct(req.params.id).then(result => res.send(result));
 })
 
+// Product archive
+router.put('/:productId/archive', auth.verify, (req, res) => {
+	const data = {
+		isAdmin: auth.decode(req.headers.authorization).isAdmin
+	}
 
+	if (data.isAdmin) {
+		productController.archiveProduct(req.params, req.body).then(result => res.send(result));
+	}
+	else {
+		res.send(false)
+	}
+})
+
+// Product unarchive
+router.put('/:productId/unarchive', auth.verify, (req, res) => {
+	const data = {
+		isAdmin: auth.decode(req.headers.authorization).isAdmin
+	}
+
+	if (data.isAdmin) {
+		productController.unarchiveProduct(req.params, req.body).then(result => res.send(result));
+	}
+	else {
+		res.send(false)
+	}
+})
 
 module.exports = router;

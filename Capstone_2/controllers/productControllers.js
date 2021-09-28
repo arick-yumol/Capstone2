@@ -20,7 +20,7 @@ module.exports.addProduct = (reqBody) => {
 			}
 		})
 	}
-	else {
+	else {	// Encounter TypeError: not a function
 		console.log("Error! User is not an admin");
 		return false;
 	}
@@ -46,16 +46,52 @@ module.exports.getAllProducts = () => {
 	})
 }
 
-// Product retrieval (SPECIFIC by productID)
+// Product retrieval (SPECIFIC by productId)
 module.exports.getSpecificProduct = (productId) => {
 	return Product.findById(productId).then((result, error) => {
 		if (error) {
-			console.log("Error encountered!");
+			console.log("Error! Product retrieval unsuccessful!");
 			return false;
 		}
 		else {
 			console.log("Product has been retrieved.");
 			return result;
+		}
+	})
+}
+
+// Product archive
+module.exports.archiveProduct = (reqParams) => {
+	let updateProductStatus = {
+		isActive: false
+	}
+
+	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((course, error) => {
+		if (error) {
+			console.log("Error! Product archival unsuccessful.");
+			return false;
+		} 
+		else {
+			console.log("Archived product successfully!");
+			return true;
+		}
+	})
+}
+
+// Product unarchive
+module.exports.unarchiveProduct = (reqParams) => {
+	let updateProductStatus = {
+		isActive: true
+	}
+
+	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((course, error) => {
+		if (error) {
+			console.log("Error! Unarchiving product unsuccessful.");
+			return false;
+		} 
+		else {
+			console.log("Unarchived product successfully!");
+			return true;
 		}
 	})
 }
