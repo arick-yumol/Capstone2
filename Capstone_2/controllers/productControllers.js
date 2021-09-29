@@ -15,13 +15,13 @@ module.exports.addProduct = (reqBody) => {
 				return false;
 			}
 			else {
-				console.log("Admin has added a product");
+				console.log("Admin has added a product!");
 				return true;
 			}
 		})
 	}
 	else {
-		console.log("Error! User is not an admin");
+		console.log("Error! User is not an admin!");
 		return false;
 	}
 
@@ -36,10 +36,10 @@ module.exports.getAllProducts = () => {
 		}
 		else {
 			if (result < 0) {	// fix how to show in console when product directory is empty
-				console.log("No products added.")
+				console.log("No products added!")
 			}
 			else {
-				console.log("All products have been retrieved.");
+				console.log("All products have been retrieved!");
 			}
 			return result;
 		}
@@ -54,7 +54,7 @@ module.exports.getSpecificProduct = (productId) => {
 			return false;
 		}
 		else {
-			console.log("Product has been retrieved.");
+			console.log("Product has been retrieved!");
 			return result;
 		}
 	})
@@ -70,7 +70,7 @@ module.exports.updateProduct = (reqParams, reqBody) => {
 
 	return Product.findByIdAndUpdate(reqParams.productId, updateProductInformation).then((product, error) => {
 		if (error) {
-			console.log("Error! Product update unsuccessful.");
+			console.log("Error! Product information update unsuccessful!");
 			return false;
 		}
 		else {
@@ -88,7 +88,7 @@ module.exports.archiveProduct = (reqParams) => {
 
 	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((product, error) => {
 		if (error) {
-			console.log("Error! Product archival unsuccessful.");
+			console.log("Error! Product archival unsuccessful!");
 			return false;
 		}
 		else {
@@ -106,7 +106,7 @@ module.exports.unarchiveProduct = (reqParams) => {
 
 	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((product, error) => {
 		if (error) {
-			console.log("Error! Unarchiving product unsuccessful.");
+			console.log("Error! Unarchiving product unsuccessful!");
 			return false;
 		}
 		else {

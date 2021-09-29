@@ -23,7 +23,7 @@ module.exports.registerUser = (reqBody) => {
 	})
 }
 
-// User existence checker
+// User existence checker (OPTIONAL)
 module.exports.checkUserExistence = (reqBody) => {
 	return User.find( { email: reqBody.email } ).then(result => {
 		if (result.length > 0) {
@@ -58,3 +58,55 @@ module.exports.loginUser = (reqBody) => {
 	})
 }
 
+// Users' profile identification  (OPTIONAL)
+module.exports.userProfiles = () => {
+	return User.find( { isAdmin: false } ).then(result => {
+		return result;
+	})
+}
+
+/*// User specific identification (OPTIONAL)
+module.exports.userProfile = (reqParams) => {
+	return User.findById(reqParams.userId).then((result, error) => {
+		if (error) {
+			console.log("Error!");
+			return false;
+		}
+		else {
+			console.log("User details retrieved.")
+			result.password = "";
+			return result;
+		}
+	})
+}*/
+module.exports.userProfile = (reqParams) =>{
+	return User.findById(reqParams.userId).then(result => {
+		result.password = "";
+		return result;
+	})
+}
+
+// User admin setup
+module.exports.setUserAsAdmin = (reqParams, reqBody) => {
+	let updateUserStatus = {
+		isAdmin: true
+	}
+
+	return User.findByIdAndUpdate(reqParams.userId, updateUserStatus).then((user, error) => {
+		if (error) {
+			console.log("Error! User status update unsuccessful.");
+			return false;
+		} 
+		else {
+			console.log("Updated user as an admin.")
+			return true;
+		}
+	})
+}
+
+// Admin profiles (OPTIONAL)
+module.exports.adminProfiles = () => {
+	return User.find( { isAdmin: true } ).then(result => {
+		return result;
+	})
+}
