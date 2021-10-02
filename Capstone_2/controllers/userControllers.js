@@ -23,25 +23,11 @@ module.exports.registerUser = (reqBody) => {
 	})
 }
 
-// User existence checker (OPTIONAL)
-module.exports.checkUserExistence = (reqBody) => {
-	return User.find( { email: reqBody.email } ).then(result => {
-		if (result.length > 0) {
-			console.log("User exists.");
-			return true;
-		}
-		else {
-			console.log("User does not exist.");
-			return false;
-		}
-	})
-}
-
 // User authentication
 module.exports.loginUser = (reqBody) => {
 	return User.findOne( {email: reqBody.email} ).then(result => {
 		if (result == null) {
-			console.log("User does not exist.");
+			console.log("User does not exist!");
 			return false;
 		}
 		else {
@@ -58,34 +44,6 @@ module.exports.loginUser = (reqBody) => {
 	})
 }
 
-// Users' profile identification  (OPTIONAL)
-module.exports.userProfiles = () => {
-	return User.find( { isAdmin: false } ).then(result => {
-		return result;
-	})
-}
-
-/*// User specific identification (OPTIONAL)
-module.exports.userProfile = (reqParams) => {
-	return User.findById(reqParams.userId).then((result, error) => {
-		if (error) {
-			console.log("Error!");
-			return false;
-		}
-		else {
-			console.log("User details retrieved.")
-			result.password = "";
-			return result;
-		}
-	})
-}*/
-module.exports.userProfile = (reqParams) =>{
-	return User.findById(reqParams.userId).then(result => {
-		result.password = "";
-		return result;
-	})
-}
-
 // User admin setup
 module.exports.setUserAsAdmin = (reqParams, reqBody) => {
 	let updateUserStatus = {
@@ -94,19 +52,66 @@ module.exports.setUserAsAdmin = (reqParams, reqBody) => {
 
 	return User.findByIdAndUpdate(reqParams.userId, updateUserStatus).then((user, error) => {
 		if (error) {
-			console.log("Error! User status update unsuccessful.");
+			console.log("Error! User status update unsuccessful!");
 			return false;
 		} 
 		else {
-			console.log("Updated user as an admin.")
+			console.log("Updated user as an admin!")
 			return true;
 		}
 	})
 }
 
-// Admin profiles (OPTIONAL)
-module.exports.adminProfiles = () => {
-	return User.find( { isAdmin: true } ).then(result => {
-		return result;
+// User order checkout
+module.exports.orderCheckout = async (data) => {
+	let isUserUpdated = await User.findById(data.userId).then(user => {
+		user.orderList.push( { productId: data.productId } )
+
+		return user.save().then((user, error) => {
+			if (error) {
+				console.log("Error!");
+				return false;
+			}
+			else {
+				console.log("Success!");
+				return true;
+			}
+		})
+	})
+
+	let isProductUpdated = await Product.findById(data.productId).then(product => {
+		product.orderedBy.push( { userId: data.userId } )
+
+		return product.save().then((product, error) => {
+			if (error) {
+				console.log("Error!");
+				return false;
+			}
+			else {
+				console.log("Success!");
+				return true;
+			}
+		})
+	})
+
+	if (isUserUpdated && isProductUpdated) {
+		console.log("User and product documents have been successfully updated!")
+		return true;
+	}
+	else {
+		console.log("User and product documents update failed!")
+		return false;
+	}
+}
+
+// All user orders retrieval
+module.exports.getAllOrders = () => {
+
+}
+
+// User order retrieval
+module.exports.getOrder = (data) => {
+	return User.findById(data.userId).then(result => {
+		return result.orderList;
 	})
 }

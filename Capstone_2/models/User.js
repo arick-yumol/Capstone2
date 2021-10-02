@@ -15,9 +15,9 @@ const userSchema = new mongoose.Schema({
 	},
 	orderList: [
 		{
-			orderId: {
-			type: String,
-			required: [true, "orderId is required."]
+			productId: {
+				type: String,
+				required: [true, "orderId is required."]
 			},
 			orderDate: {
 				type: Date,

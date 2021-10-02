@@ -21,11 +21,11 @@ const productSchema = new mongoose.Schema({
 		type: Date,
 		default: new Date()
 	},
-	orderList: [
+	orderedBy: [
 		{
-			orderId: {
-			type: String,
-			required: [true, "orderId is required."]
+			userId: {
+				type: String,
+				required: [true, "orderId is required."]
 			},
 			orderDate: {
 				type: Date,

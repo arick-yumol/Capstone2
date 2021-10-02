@@ -29,14 +29,14 @@ module.exports.addProduct = (reqBody) => {
 
 // Product retrieval (ALL)
 module.exports.getAllProducts = () => {
-	return Product.find( {} ).then((result, error) => {
+	return Product.find( {isActive: true} ).then((result, error) => {
 		if (error) {
 			console.log("Error encountered!");
 			return false;
 		}
 		else {
 			if (result < 0) {	// fix how to show in console when product directory is empty
-				console.log("No products added!")
+				console.log("No products added!");
 			}
 			else {
 				console.log("All products have been retrieved!");
@@ -93,24 +93,6 @@ module.exports.archiveProduct = (reqParams) => {
 		}
 		else {
 			console.log("Archived product successfully!");
-			return true;
-		}
-	})
-}
-
-// Product unarchive
-module.exports.unarchiveProduct = (reqParams) => {
-	let updateProductStatus = {
-		isActive: true
-	}
-
-	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((product, error) => {
-		if (error) {
-			console.log("Error! Unarchiving product unsuccessful!");
-			return false;
-		}
-		else {
-			console.log("Unarchived product successfully!");
 			return true;
 		}
 	})
