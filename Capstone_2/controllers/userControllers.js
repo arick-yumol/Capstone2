@@ -8,7 +8,8 @@ const bcrypt = require('bcrypt');
 module.exports.registerUser = (reqBody) => {
 	let newUser = new User({
 		email: reqBody.email,
-		password: bcrypt.hashSync(reqBody.password, 10)
+		password: bcrypt.hashSync(reqBody.password, 10),
+		isAdmin: reqBody.isAdmin
 	})
 
 	return newUser.save().then((user, error) => {
@@ -81,7 +82,7 @@ module.exports.orderCheckout = async (data) => {
 
 	let isProductUpdated = await Product.findById(data.productId).then(product => {
 		product.orderedBy.push( { userId: data.userId } )
-
+		
 		return product.save().then((product, error) => {
 			if (error) {
 				console.log("Error!");
@@ -93,6 +94,23 @@ module.exports.orderCheckout = async (data) => {
 			}
 		})
 	})
+
+	/*let isOrderUpdated = await Order.findById(data.orderId).then(order => 
+		{
+			order.orderedBy.push(
+				{
+					userId: data.userId,
+					userName: data.userName
+				}
+			),
+			order.productOrdered.push(
+				{
+					productId: data.productId,
+					productName: data.productName
+				}
+			)
+		}
+	)*/
 
 	if (isUserUpdated && isProductUpdated) {
 		console.log("User and product documents have been successfully updated!")
@@ -106,12 +124,80 @@ module.exports.orderCheckout = async (data) => {
 
 // All user orders retrieval
 module.exports.getAllOrders = () => {
-
+	return User.find( {isAdmin: false} ).then((result, error) => {
+		if (error) {
+			console.log("Error! Unable to retrieve all orders!")
+			return false;
+		}
+		else {
+			console.log("Retrieved all orders!")
+			return result;
+		}
+	})
 }
 
 // User order retrieval
 module.exports.getOrder = (data) => {
-	return User.findById(data.userId).then(result => {
-		return result.orderList;
+	return User.findById(data.userId).then((result, error) => {
+		if (error) {
+			console.log("Error! Retrieval of user's order is unsuccessful!")
+			return false;
+		}
+		else {
+			console.log("User's order has been retrieved successfully!")
+			return result.orderList;
+		}
 	})
 }
+
+
+
+// User registration checker (OPTIONAL)
+module.exports.checkUserRegistration = (reqBody) => {
+	return User.find( { email: reqBody.email } ).then(result => {
+		if (result.length > 0) {
+			console.log("User exists!");
+			return true;
+		}
+		else {
+			console.log("User does not exist!");
+			return false;
+		}
+	})
+}
+
+// User profiles identification  (OPTIONAL)
+module.exports.userProfiles = () => {
+	return User.find( {} ).then((result, error) => {
+		if (error) {
+			console.log("Error! User profiles retrieved unsuccessfully!")
+			return false;
+		}
+		else {
+			console.log("All user profiles retrieved successfully!")
+			return result;
+		}
+	})
+}
+
+// User specific profile identification (OPTIONAL)
+module.exports.userProfile = (data) => {
+	return User.findById(data.userId).then((result, error) => {
+		result.password = "";
+
+		if (error) {
+			console.log("Error!");
+			return false;
+		}
+		else {
+			console.log("User details retrieved.")
+			return result;
+		}
+	})
+}
+/*module.exports.userProfile = (reqParams) =>{
+	return User.findById(reqParams.userId).then(result => {
+		result.password = "";
+		return result;
+	})
+}*/

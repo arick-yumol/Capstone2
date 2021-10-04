@@ -97,3 +97,23 @@ module.exports.archiveProduct = (reqParams) => {
 		}
 	})
 }
+
+
+
+// Product unarchive (OPTIONAL)
+module.exports.unarchiveProduct = (reqParams) => {
+	let updateProductStatus = {
+		isActive: true
+	}
+
+	return Product.findByIdAndUpdate(reqParams.productId, updateProductStatus).then((product, error) => {
+		if (error) {
+			console.log("Error! Unarchiving product unsuccessful!");
+			return false;
+		}
+		else {
+			console.log("Unarchived product successfully!");
+			return true;
+		}
+	})
+}

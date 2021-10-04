@@ -59,4 +59,20 @@ router.put('/:productId/archive', auth.verify, (req, res) => {
 	}
 })
 
+
+
+// Product unarchive (OPTIONAL)
+router.put('/:productId/unarchive', auth.verify, (req, res) => {
+	const data = {
+		isAdmin: auth.decode(req.headers.authorization).isAdmin
+	}
+
+	if (data.isAdmin) {
+		productController.unarchiveProduct(req.params, req.body).then(result => res.send(result));
+	}
+	else {
+		res.send(false)
+	}
+})
+
 module.exports = router;

@@ -19,6 +19,9 @@ const userSchema = new mongoose.Schema({
 				type: String,
 				required: [true, "orderId is required."]
 			},
+			/*productName: {
+				type: String
+			},*/
 			orderDate: {
 				type: Date,
 				default: new Date()
