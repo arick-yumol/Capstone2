@@ -1,0 +1,493 @@
+{
+	"info": {
+		"_postman_id": "9231b58a-6510-46c7-8ffd-960cfc549743",
+		"name": "Batch127_Capstone2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "user registration",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"jacobdoe@mail.com\",\r\n    \"password\": \"jacob1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user authentication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"julietdoe@mail.com\",\r\n    \"password\": \"juliet1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set user as admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTlhOTk0YmM1NDEzZDA5YjQ0Y2EzNSIsImVtYWlsIjoianVsaWV0ZG9lQG1haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjMzMjc4NTY1fQ.ZwV5b3PvyKBYNShdoKDpaIOOPU6PULHLv2E2UCEe04c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/users/6159a7aa41b0403f63cb9c7a/setAsAdmin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"users",
+								"6159a7aa41b0403f63cb9c7a",
+								"setAsAdmin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTlhODlkNDFiMDQwM2Y2M2NiOWM3YyIsImVtYWlsIjoiamVzc2ljYWRvZUBtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MzMyNjkxMTJ9.Tre7L8AS7z3-CnWD1LqB6qLfBzO6BogEZFtl7Ban7qQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"6159aa3dbc5413d09b44ca3b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/users/checkout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"users",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user order retrieval",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTlhOTk0YmM1NDEzZDA5YjQ0Y2EzNSIsImVtYWlsIjoianVsaWV0ZG9lQG1haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjMzMjY5NTIwfQ.PQX4UURC4F7kEWNKJ5Dh4dF1JStIK1e4QySL84PGnzs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4001/users/6159a89d41b0403f63cb9c7c/cart",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"users",
+								"6159a89d41b0403f63cb9c7c",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve all orders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTlhOTk0YmM1NDEzZDA5YjQ0Y2EzNSIsImVtYWlsIjoianVsaWV0ZG9lQG1haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjMzMjY5NTIwfQ.PQX4UURC4F7kEWNKJ5Dh4dF1JStIK1e4QySL84PGnzs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/users/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"users",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "product creation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTlhOTk0YmM1NDEzZDA5YjQ0Y2EzNSIsImVtYWlsIjoianVsaWV0ZG9lQG1haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjMzMjY2MTI4fQ.Jd7BQvjCw4YyfKINiZS350jb6EgjvBfV5qaPLjfhgdQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Mouse M9300\",\r\n    \"description\":\"An ergonomic mouse that fits your hand like a glove\",\r\n    \"price\":3375\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/products/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"products",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve all products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTVhYzNmYTk1YjBjYjZmM2Q5MTUwOCIsImVtYWlsIjoiamFja2RvZUBtYWlsLmNvbSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE2MzMyNDQ5Mzl9.PshZtpD9lImistrtdfZE7ORXpLG1HM8V2PH5osDcymk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/products/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"products",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve specific product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/products/6155af0262c796f09468b4ba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"products",
+								"6155af0262c796f09468b4ba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update a product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTVhYmZmYTk1YjBjYjZmM2Q5MTUwMyIsImVtYWlsIjoiam9obmRvZUBtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzMzAwNTI3MX0.-qinHOaNf6QE03XrKULLQ2tUQ_e2Ue4GU-hyQyjt38k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Keyboard KB7800\",\r\n    \"description\": \"A compact wireless keyboard designed for all devices.\",\r\n    \"price\": 5335\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/products/6155af1662c796f09468b4bc/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"products",
+								"6155af1662c796f09468b4bc",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "archive a product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTVhYmZmYTk1YjBjYjZmM2Q5MTUwMyIsImVtYWlsIjoiam9obmRvZUBtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzMzAwNTI3MX0.-qinHOaNf6QE03XrKULLQ2tUQ_e2Ue4GU-hyQyjt38k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/products/6155af0262c796f09468b4ba/archive",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"products",
+								"6155af0262c796f09468b4ba",
+								"archive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": []
+		},
+		{
+			"name": "Additonal features",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "User registration checker",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"johndoe@mail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:4001/users/checker",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"users",
+										"checker"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User profiles",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTlhOTk0YmM1NDEzZDA5YjQ0Y2EzNSIsImVtYWlsIjoianVsaWV0ZG9lQG1haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjMzMjcyNzk5fQ.6Ga-vnMqfGtRFNsvfO8HsuSieSBogY7YawAG-fWyBR8",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/users/profiles",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"users",
+										"profiles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User specific profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNTlhOTk0YmM1NDEzZDA5YjQ0Y2EzNSIsImVtYWlsIjoianVsaWV0ZG9lQG1haWwuY29tIiwiaXNBZG1pbiI6dHJ1ZSwiaWF0IjoxNjMzMjc1MDYxfQ.3bkWa1h1Iaz2P6LOoiIxO0fkpDlypQfFIvKzGdzD-DE",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/users/159a994bc5413d09b44ca35/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"users",
+										"159a994bc5413d09b44ca35",
+										"profile"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "unarchive a product",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
